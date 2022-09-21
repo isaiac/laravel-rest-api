@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', function ($api) {
+    $api->group(['middleware' => 'api'], function ($api) {
+        $api->get('ping', 'App\Http\Controllers\ApiController@ping');
+    });
 });
