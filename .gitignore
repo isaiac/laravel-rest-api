@@ -15,5 +15,9 @@ yarn-error.log
 /.idea
 /.vscode
 
-# MacOS
+# env
+.env*
+!.env.example
+
+# macOS
 .DS_Store
