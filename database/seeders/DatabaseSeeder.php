@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,11 +13,61 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        switch (config('app.env')) {
+            case 'production':
+                $this->runProductionSeeders();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+                break;
+            case 'testing':
+                $this->runTestingSeeders();
+
+                break;
+            case 'local':
+                $this->runLocalSeeders();
+
+                break;
+        }
+    }
+
+    /**
+     * Seed the application's database with production data.
+     *
+     * @return void
+     */
+    public function runProductionSeeders()
+    {
+        $this->call([
+            \Database\Seeders\production\PermissionSeeder::class,
+            \Database\Seeders\production\RoleSeeder::class,
+            \Database\Seeders\production\UserSeeder::class
+        ]);
+    }
+
+    /**
+     * Seed the application's database with testing data.
+     *
+     * @return void
+     */
+    public function runTestingSeeders()
+    {
+        $this->call([
+            \Database\Seeders\testing\PermissionSeeder::class,
+            \Database\Seeders\testing\RoleSeeder::class,
+            \Database\Seeders\testing\UserSeeder::class
+        ]);
+    }
+
+    /**
+     * Seed the application's database with local data.
+     *
+     * @return void
+     */
+    public function runLocalSeeders()
+    {
+        $this->call([
+            \Database\Seeders\local\PermissionSeeder::class,
+            \Database\Seeders\local\RoleSeeder::class,
+            \Database\Seeders\local\UserSeeder::class
+        ]);
     }
 }
