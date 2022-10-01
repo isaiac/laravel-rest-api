@@ -7,7 +7,7 @@ use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Models\User;
 use App\Services\AuthService;
 use Exception;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class ForgotPasswordController extends Controller
 {
@@ -37,12 +37,14 @@ class ForgotPasswordController extends Controller
      */
     protected function errorSendingResetPasswordEmail()
     {
+        $status_code = Response::HTTP_FAILED_DEPENDENCY;
+
         return $this->response
             ->array([
-                'status_code' => 424,
-                'message' => Response::$statusTexts[424],
+                'status_code' => $status_code,
+                'message' => Response::$statusTexts[$status_code],
                 'errors' => 'There was a problem sending you a reset password email. Please, try again later.'
             ])
-            ->setStatusCode(424);
+            ->setStatusCode($status_code);
     }
 }

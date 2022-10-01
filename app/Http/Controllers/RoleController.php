@@ -10,6 +10,7 @@ use App\Http\Requests\Role\UpdateRequest;
 use App\Http\Resources\Role\RoleResource;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Spatie\Activitylog\Facades\LogBatch;
 
@@ -67,7 +68,7 @@ class RoleController extends Controller
 
         return $this->response
             ->array((RoleResource::make($role))->toArray($request))
-            ->setStatusCode(201);
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -140,7 +141,7 @@ class RoleController extends Controller
 
         return $this->response
             ->array(RoleResource::collection($roles)->toArray($request))
-            ->setStatusCode(201);
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**

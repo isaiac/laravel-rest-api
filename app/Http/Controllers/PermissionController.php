@@ -10,6 +10,7 @@ use App\Http\Requests\Permission\UpdateRequest;
 use App\Http\Resources\Permission\PermissionResource;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Spatie\Activitylog\Facades\LogBatch;
 
 class PermissionController extends Controller
@@ -62,7 +63,7 @@ class PermissionController extends Controller
 
         return $this->response
             ->array((PermissionResource::make($permission))->toArray($request))
-            ->setStatusCode(201);
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -127,7 +128,7 @@ class PermissionController extends Controller
 
         return $this->response
             ->array(PermissionResource::collection($permissions)->toArray($request))
-            ->setStatusCode(201);
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**

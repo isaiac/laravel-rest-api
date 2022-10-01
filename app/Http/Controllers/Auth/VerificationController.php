@@ -8,7 +8,7 @@ use App\Http\Requests\Auth\VerifyRequest;
 use App\Models\User;
 use App\Services\AuthService;
 use Exception;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class VerificationController extends Controller
 {
@@ -68,17 +68,19 @@ class VerificationController extends Controller
      */
     protected function errorEmailIsAlreadyVerified()
     {
+        $status_code = Response::HTTP_UNPROCESSABLE_ENTITY;
+
         return $this->response
             ->array([
-                'status_code' => 422,
-                'message' => Response::$statusTexts[422],
+                'status_code' => $status_code,
+                'message' => Response::$statusTexts[$status_code],
                 'errors' => [
                     'email' => [
                         'The email is already verified.'
                     ]
                 ]
             ])
-            ->setStatusCode(422);
+            ->setStatusCode($status_code);
     }
 
     /**
@@ -89,17 +91,19 @@ class VerificationController extends Controller
      */
     protected function errorBadToken(string $error = '')
     {
+        $status_code = Response::HTTP_UNPROCESSABLE_ENTITY;
+
         return $this->response
             ->array([
-                'status_code' => 422,
-                'message' => Response::$statusTexts[422],
+                'status_code' => $status_code,
+                'message' => Response::$statusTexts[$status_code],
                 'errors' => [
                     'token' => [
                         $error
                     ]
                 ]
             ])
-            ->setStatusCode(422);
+            ->setStatusCode($status_code);
     }
 
     /**
@@ -109,12 +113,14 @@ class VerificationController extends Controller
      */
     protected function errorSendingVerificationEmail()
     {
+        $status_code = Response::HTTP_FAILED_DEPENDENCY;
+
         return $this->response
             ->array([
-                'status_code' => 424,
-                'message' => Response::$statusTexts[424],
+                'status_code' => $status_code,
+                'message' => Response::$statusTexts[$status_code],
                 'errors' => 'There was a problem sending you a verification email. Please, try again later.'
             ])
-            ->setStatusCode(424);
+            ->setStatusCode($status_code);
     }
 }

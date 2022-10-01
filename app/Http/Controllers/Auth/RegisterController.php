@@ -8,6 +8,7 @@ use App\Http\Resources\Me\MeResource;
 use App\Models\User;
 use App\Services\AuthService;
 use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 
 class RegisterController extends Controller
@@ -31,6 +32,6 @@ class RegisterController extends Controller
 
         return $this->response
             ->array((new MeResource($user))->toArray($request))
-            ->setStatusCode(201);
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 }

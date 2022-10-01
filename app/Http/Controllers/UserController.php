@@ -10,6 +10,7 @@ use App\Http\Requests\User\UpdateRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Spatie\Activitylog\Facades\LogBatch;
 
@@ -71,7 +72,7 @@ class UserController extends Controller
 
         return $this->response
             ->array((UserResource::make($user))->toArray($request))
-            ->setStatusCode(201);
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -152,7 +153,7 @@ class UserController extends Controller
 
         return $this->response
             ->array(UserResource::collection($users)->toArray($request))
-            ->setStatusCode(201);
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**

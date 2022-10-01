@@ -7,7 +7,7 @@ use App\Http\Requests\Auth\UpdatePasswordRequest;
 use App\Models\User;
 use App\Services\AuthService;
 use Exception;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class ResetPasswordController extends Controller
 {
@@ -54,16 +54,18 @@ class ResetPasswordController extends Controller
      */
     protected function errorBadToken(string $error = '')
     {
+        $status_code = Response::HTTP_UNPROCESSABLE_ENTITY;
+
         return $this->response
             ->array([
-                'status_code' => 422,
-                'message' => Response::$statusTexts[422],
+                'status_code' => $status_code,
+                'message' => Response::$statusTexts[$status_code],
                 'errors' => [
                     'token' => [
                         $error
                     ]
                 ]
             ])
-            ->setStatusCode(422);
+            ->setStatusCode($status_code);
     }
 }
