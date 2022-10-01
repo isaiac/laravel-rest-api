@@ -18,12 +18,16 @@ class DatabaseSeeder extends Seeder
                 $this->runProductionSeeders();
 
                 break;
-            case 'testing':
-                $this->runTestingSeeders();
+            case 'staging':
+                $this->runStagingSeeders();
 
                 break;
             case 'local':
                 $this->runLocalSeeders();
+
+                break;
+            case 'testing':
+                $this->runTestingSeeders();
 
                 break;
         }
@@ -44,16 +48,16 @@ class DatabaseSeeder extends Seeder
     }
 
     /**
-     * Seed the application's database with testing data.
+     * Seed the application's database with staging data.
      *
      * @return void
      */
-    public function runTestingSeeders()
+    public function runStagingSeeders()
     {
         $this->call([
-            \Database\Seeders\testing\PermissionSeeder::class,
-            \Database\Seeders\testing\RoleSeeder::class,
-            \Database\Seeders\testing\UserSeeder::class
+            \Database\Seeders\staging\PermissionSeeder::class,
+            \Database\Seeders\staging\RoleSeeder::class,
+            \Database\Seeders\staging\UserSeeder::class
         ]);
     }
 
@@ -68,6 +72,20 @@ class DatabaseSeeder extends Seeder
             \Database\Seeders\local\PermissionSeeder::class,
             \Database\Seeders\local\RoleSeeder::class,
             \Database\Seeders\local\UserSeeder::class
+        ]);
+    }
+
+    /**
+     * Seed the application's database with testing data.
+     *
+     * @return void
+     */
+    public function runTestingSeeders()
+    {
+        $this->call([
+            \Database\Seeders\testing\PermissionSeeder::class,
+            \Database\Seeders\testing\RoleSeeder::class,
+            \Database\Seeders\testing\UserSeeder::class
         ]);
     }
 }
