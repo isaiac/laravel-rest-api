@@ -21,7 +21,7 @@ class VerificationController extends Controller
     public function sendVerificationEmail(VerificationRequest $request)
     {
         if ($user = User::where('email', $request->email)->first()) {
-            if (! $user->isEmailVerified()) {
+            if (! $user->isVerified()) {
                 try {
                     AuthService::sendVerificationEmail($user);
 
@@ -50,7 +50,7 @@ class VerificationController extends Controller
         }
 
         if ($user = User::where('email', $payload['email'])->first()) {
-            if (! $user->isEmailVerified()) {
+            if (! $user->isVerified()) {
                 $user->email_verified_at = now();
                 $user->save();
 

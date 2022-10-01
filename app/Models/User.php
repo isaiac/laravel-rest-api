@@ -62,14 +62,14 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if the given password is equal to the user's password
+     * Scope a query to only include verified users.
      *
-     * @param  string  $password
-     * @return bool
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function checkPassword(string $password): bool
+    public function scopeVerified($query)
     {
-        return Hash::check($password, $this->password);
+        return $query->whereNotNull('email_verified_at');
     }
 
     /**
@@ -83,13 +83,24 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if the user's email is verified.
+     * Check if the user is verified.
      *
      * @return bool
      */
-    public function isEmailVerified(): bool
+    public function isVerified(): bool
     {
         return ! is_null($this->email_verified_at);
+    }
+
+    /**
+     * Check if the given password is equal to the user's password
+     *
+     * @param  string  $password
+     * @return bool
+     */
+    public function checkPassword(string $password): bool
+    {
+        return Hash::check($password, $this->password);
     }
 
     /**

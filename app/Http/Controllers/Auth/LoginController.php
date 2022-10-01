@@ -30,7 +30,7 @@ class LoginController extends Controller
     {
         if ($user = User::where('email', $request->email)->first()) {
             if ($user->isActive()
-                && $user->isEmailVerified()
+                && $user->isVerified()
                 && $user->checkPassword($request->password)
             ) {
                 return $this->respondWithToken(
