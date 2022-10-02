@@ -6,6 +6,7 @@ use App\Enums\UserStatus;
 use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasUuids, Loggable;
+    use HasApiTokens, HasFactory, HasUuids, Loggable;
 
     /**
      * The attributes that are mass assignable.
