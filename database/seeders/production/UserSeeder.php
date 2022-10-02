@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
 
         $user = User::create([
             'name' => 'Super Admin',
-            'email' => 'superadmin@email.com',
+            'email' => 'superadmin@example.com',
             'username' => 'superadmin',
             'password' => 'superadmin',
             'email_verified_at' => $date,
