@@ -36,7 +36,7 @@ class LoginController extends Controller
                 return $this->respondWithToken(
                     $user->createToken(
                         'access_token',
-                        $user->getTokenAbilities()
+                        $user->getAbilities()
                     )->plainTextToken
                 );
             }
@@ -60,7 +60,7 @@ class LoginController extends Controller
             return $this->respondWithToken(
                 $user->createToken(
                     'access_token',
-                    $user->getTokenAbilities()
+                    $user->getAbilities()
                 )->plainTextToken
             );
         }

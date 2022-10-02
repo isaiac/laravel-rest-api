@@ -104,11 +104,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user token's abilities.
+     * Get the user's abilities.
      *
      * @return array<int, string>
      */
-    public function getTokenAbilities(): array
+    public function getAbilities(): array
     {
         if ($this->roles()
             ->newPivotStatementForId('super-admin')
