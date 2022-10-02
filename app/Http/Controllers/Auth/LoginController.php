@@ -28,7 +28,11 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        if ($user = User::where('email', $request->email)->first()) {
+        $login = $request->login;
+
+        if ($user = User::where(function ($query) use ($login) {
+            $query->where('username', $login)->orWhere('email', $login);
+        })->first()) {
             if ($user->isActive()
                 && $user->isVerified()
                 && $user->checkPassword($request->password)
