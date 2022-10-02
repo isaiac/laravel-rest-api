@@ -83,6 +83,7 @@ class DatabaseSeeder extends Seeder
     public function runTestingSeeders()
     {
         $this->call([
+            \Database\Seeders\testing\LogSeeder::class,
             \Database\Seeders\testing\PermissionSeeder::class,
             \Database\Seeders\testing\RoleSeeder::class,
             \Database\Seeders\testing\UserSeeder::class
