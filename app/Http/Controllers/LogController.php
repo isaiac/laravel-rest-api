@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Log\DestroyBatchRequest;
 use App\Http\Resources\Log\LogResource;
 use Illuminate\Http\Request;
-use Spatie\Activitylog\Facades\LogBatch;
 use Spatie\Activitylog\Models\Activity as Log;
 
 class LogController extends Controller
@@ -70,13 +69,9 @@ class LogController extends Controller
     {
         $data = $request->post('data', []);
 
-        LogBatch::startBatch();
-
         foreach ($data as $log_data) {
             Log::findOrFail($log_data['id'])->delete();
         }
-
-        LogBatch::endBatch();
 
         return $this->response->noContent();
     }
@@ -91,14 +86,10 @@ class LogController extends Controller
     {
         $params = $this->getQueryBuilderParams($request);
 
-        LogBatch::startBatch();
-
         $this->setCollectionWhere(
             Log::query(),
             $params['filters']
         )->delete();
-
-        LogBatch::endBatch();
 
         return $this->response->noContent();
     }
