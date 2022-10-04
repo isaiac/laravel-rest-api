@@ -62,8 +62,10 @@ class RoleController extends Controller
     {
         $role = Role::create(Arr::except($request->post(), 'permissions'));
 
-        if ($request->has('permissions')) {
-            $role->syncPermissions($request->permissions);
+        $permissions = $request->post('permissions');
+
+        if (isset($permissions)) {
+            $role->syncPermissions($permissions);
         }
 
         return $this->response
@@ -94,8 +96,10 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role->update(Arr::except($request->post(), 'permissions'));
 
-        if ($request->has('permissions')) {
-            $role->syncPermissions($request->permissions);
+        $permissions = $request->post('permissions');
+
+        if (isset($permissions)) {
+            $role->syncPermissions($permissions);
         }
 
         return RoleResource::make($role);
