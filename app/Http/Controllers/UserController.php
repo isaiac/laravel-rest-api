@@ -62,12 +62,15 @@ class UserController extends Controller
     {
         $user = User::create(Arr::except($request->post(), ['roles', 'permissions']));
 
-        if ($request->has('roles')) {
-            $user->syncRoles($request->roles);
+        $roles = $request->post('roles');
+        $permissions = $request->post('permissions');
+
+        if (isset($roles)) {
+            $user->syncRoles($roles);
         }
 
-        if ($request->has('permissions')) {
-            $user->syncPermissions($request->permissions);
+        if (isset($permissions)) {
+            $user->syncPermissions($permissions);
         }
 
         return $this->response
@@ -98,12 +101,15 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update(Arr::except($request->post(), ['roles', 'permissions']));
 
-        if ($request->has('roles')) {
-            $user->syncRoles($request->roles);
+        $roles = $request->post('roles');
+        $permissions = $request->post('permissions');
+
+        if (isset($roles)) {
+            $user->syncRoles($roles);
         }
 
-        if ($request->has('permissions')) {
-            $user->syncPermissions($request->permissions);
+        if (isset($permissions)) {
+            $user->syncPermissions($permissions);
         }
 
         return UserResource::make($user);
