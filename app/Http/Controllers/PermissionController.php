@@ -69,24 +69,23 @@ class PermissionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string  $id
+     * @param  \App\Models\Permission  $permission
      * @return \App\Http\Resources\Permission\PermissionResource
      */
-    public function show(string $id)
+    public function show(Permission $permission)
     {
-        return PermissionResource::make(Permission::findOrFail($id));
+        return PermissionResource::make($permission);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\Permission\UpdateRequest  $request
-     * @param  string  $id
+     * @param  \App\Models\Permission  $permission
      * @return \App\Http\Resources\Permission\PermissionResource
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(UpdateRequest $request, Permission $permission)
     {
-        $permission = Permission::findOrFail($id);
         $permission->update($request->post());
 
         return PermissionResource::make($permission);
@@ -95,12 +94,12 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  string  $id
+     * @param  \App\Models\Permission  $permission
      * @return \Dingo\Api\Http\Response
      */
-    public function destroy(string $id)
+    public function destroy(Permission $permission)
     {
-        Permission::findOrFail($id)->delete();
+        $permission->delete();
 
         return $this->response->noContent();
     }

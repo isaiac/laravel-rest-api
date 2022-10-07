@@ -81,24 +81,23 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string  $id
+     * @param  \App\Models\User  $user
      * @return \App\Http\Resources\User\UserResource
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        return UserResource::make(User::findOrFail($id));
+        return UserResource::make($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\User\UpdateRequest  $request
-     * @param  string  $id
+     * @param  \App\Models\User  $user
      * @return \App\Http\Resources\User\UserResource
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(UpdateRequest $request, User $user)
     {
-        $user = User::findOrFail($id);
         $user->update(Arr::except($request->post(), ['roles', 'permissions']));
 
         $roles = $request->post('roles');
@@ -118,12 +117,12 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  string  $id
+     * @param  \App\Models\User  $user
      * @return \Dingo\Api\Http\Response
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        User::findOrFail($id)->delete();
+        $user->delete();
 
         return $this->response->noContent();
     }

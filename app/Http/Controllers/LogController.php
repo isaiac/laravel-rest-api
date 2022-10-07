@@ -38,23 +38,23 @@ class LogController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \Spatie\Activitylog\Models\Activity  $log
      * @return \App\Http\Resources\Log\LogResource
      */
-    public function show(int $id)
+    public function show(Log $log)
     {
-        return LogResource::make(Log::findOrFail($id));
+        return LogResource::make($log);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Spatie\Activitylog\Models\Activity  $log
      * @return \Dingo\Api\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Log $log)
     {
-        Log::findOrFail($id)->delete();
+        $log->delete();
 
         return $this->response->noContent();
     }

@@ -53,23 +53,19 @@ class LoginController extends Controller
      * Get a token via given user's id.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  string  $id
+     * @param  \App\Models\User  $user
      * @return \Dingo\Api\Http\Response
      */
-    public function loginAs(Request $request, string $id)
+    public function loginAs(Request $request, User $user)
     {
-        if ($user = User::findOrFail($id)) {
-            $request->user()->currentAccessToken()->delete();
+        $request->user()->currentAccessToken()->delete();
 
-            return $this->respondWithToken(
-                $user->createToken(
-                    'access_token',
-                    $user->getAbilities()
-                )->plainTextToken
-            );
-        }
-
-        return $this->response->errorUnauthorized();
+        return $this->respondWithToken(
+            $user->createToken(
+                'access_token',
+                $user->getAbilities()
+            )->plainTextToken
+        );
     }
 
     /**

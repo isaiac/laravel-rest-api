@@ -27,8 +27,8 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|required|email|max:255|unique:App\Models\User,email,'.$this->user,
-            'username' => 'sometimes|required|string|min:3|max:20|unique:App\Models\User,username,'.$this->user,
+            'email' => 'sometimes|required|email|max:255|unique:App\Models\User,email,'.$this->user->id,
+            'username' => 'sometimes|required|string|min:3|max:20|unique:App\Models\User,username,'.$this->user->id,
             'password' => 'sometimes|required|string|min:6|max:20|confirmed',
             'status' => ['sometimes', 'required', new Enum(UserStatus::class)],
 

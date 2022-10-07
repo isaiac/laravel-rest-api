@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'sometimes|required|string|max:255|unique:App\Models\Role,name,'.$this->role,
+            'name' => 'sometimes|required|string|max:255|unique:App\Models\Role,name,'.$this->role->id,
 
             'permissions' => 'sometimes|array',
             'permissions.*' => 'sometimes|required_array_keys:id',

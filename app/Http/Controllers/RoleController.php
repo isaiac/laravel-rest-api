@@ -76,24 +76,23 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string  $id
+     * @param  \App\Models\Role  $role
      * @return \App\Http\Resources\Role\RoleResource
      */
-    public function show(string $id)
+    public function show(Role $role)
     {
-        return RoleResource::make(Role::findOrFail($id));
+        return RoleResource::make($role);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\Role\UpdateRequest  $request
-     * @param  string  $id
+     * @param  \App\Models\Role  $role
      * @return \App\Http\Resources\Role\RoleResource
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(UpdateRequest $request, Role $role)
     {
-        $role = Role::findOrFail($id);
         $role->update(Arr::except($request->post(), 'permissions'));
 
         $permissions = $request->post('permissions');
@@ -108,12 +107,12 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  string  $id
+     * @param  \App\Models\Role  $role
      * @return \Dingo\Api\Http\Response
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        Role::findOrFail($id)->delete();
+        $role->delete();
 
         return $this->response->noContent();
     }
