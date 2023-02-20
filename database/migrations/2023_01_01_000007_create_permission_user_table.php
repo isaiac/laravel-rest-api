@@ -23,14 +23,14 @@ return new class extends Migration
             $table->foreign('permission_id')
                 ->references('id')
                 ->on('permissions')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 
