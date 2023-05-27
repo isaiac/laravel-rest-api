@@ -76,7 +76,7 @@ class UserSeeder extends Seeder
                 'roles' => [
                     ['id' => 'user']
                 ]
-            ],
+            ]
         ];
 
         LogBatch::startBatch();
