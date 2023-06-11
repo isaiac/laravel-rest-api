@@ -104,30 +104,72 @@ class User extends Authenticatable
         return Hash::check($password, $this->password);
     }
 
-    /**
-     * Check if the user has a specific role.
+   /**
+     * Check if the user has one of the given roles.
      *
-     * @param  string  $role_id
+     * @param  string|array  $role_ids
      * @return bool
      */
-    public function hasRole(string $role_id): bool
+    public function hasRole($role_ids): bool
     {
+        $role_ids = is_string($role_ids) ? explode(',', $role_ids) : $role_ids;
+
         return $this->roles()
-            ->newPivotStatementForId($role_id)
+            ->newPivotStatement()
+            ->where('user_id', $this->id)
+            ->whereIn('role_id', $role_ids)
             ->exists();
     }
 
     /**
-     * Check if the user has a specific permission.
+     * Check if the user has all given roles.
      *
-     * @param  string  $permission_id
+     * @param  string|array  $role_ids
      * @return bool
      */
-    public function hasPermission(string $permission_id): bool
+    public function hasRoles($role_ids): bool
     {
+        $role_ids = is_string($role_ids) ? explode(',', $role_ids) : $role_ids;
+
+        return $this->roles()
+            ->newPivotStatement()
+            ->where('user_id', $this->id)
+            ->whereIn('role_id', $role_ids)
+            ->count() === count($role_ids);
+    }
+
+    /**
+     * Check if the user has one of the given permissions.
+     *
+     * @param  string|array  $permission_ids
+     * @return bool
+     */
+    public function hasPermission($permission_ids): bool
+    {
+        $permission_ids = is_string($permission_ids) ? explode(',', $permission_ids) : $permission_ids;
+
         return $this->permissions()
-            ->newPivotStatementForId($permission_id)
+            ->newPivotStatement()
+            ->where('user_id', $this->id)
+            ->whereIn('permission_ids', $permission_ids)
             ->exists();
+    }
+
+    /**
+     * Check if the user has all given permissions.
+     *
+     * @param  string|array  $permission_ids
+     * @return bool
+     */
+    public function hasPermissions($permission_ids): bool
+    {
+        $permission_ids = is_string($permission_ids) ? explode(',', $permission_ids) : $permission_ids;
+
+        return $this->permissions()
+            ->newPivotStatement()
+            ->where('user_id', $this->id)
+            ->whereIn('permission_ids', $permission_ids)
+            ->count() === count($permission_ids);
     }
 
     /**
