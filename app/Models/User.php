@@ -46,7 +46,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $attributes = [
-        'status' => 'active'
+        'status' => UserStatus::ACTIVE
     ];
 
     /**
