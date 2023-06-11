@@ -94,7 +94,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if the given password is equal to the user's password
+     * Check if the given password is equal to the user's password.
      *
      * @param  string  $password
      * @return bool
@@ -102,6 +102,32 @@ class User extends Authenticatable
     public function checkPassword(string $password): bool
     {
         return Hash::check($password, $this->password);
+    }
+
+    /**
+     * Check if the user has a specific role.
+     *
+     * @param  string  $role_id
+     * @return bool
+     */
+    public function hasRole(string $role_id): bool
+    {
+        return $this->roles()
+            ->newPivotStatementForId($role_id)
+            ->exists();
+    }
+
+    /**
+     * Check if the user has a specific permission.
+     *
+     * @param  string  $permission_id
+     * @return bool
+     */
+    public function hasPermission(string $permission_id): bool
+    {
+        return $this->permissions()
+            ->newPivotStatementForId($permission_id)
+            ->exists();
     }
 
     /**
