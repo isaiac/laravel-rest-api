@@ -24,6 +24,7 @@ class StoreBatchRequest extends FormRequest
     public function rules()
     {
         return [
+            'data' => 'required|array',
             'data.*.name' => 'required|string|max:255|unique:App\Models\Role',
 
             'data.*.permissions' => 'sometimes|array',

@@ -39,6 +39,7 @@ class UpdateBatchRequest extends FormRequest
         }, trans('validation.unique'));
 
         return [
+            'data' => 'required|array',
             'data.*.id' => 'required|slug|max:255|exists:App\Models\Permission',
             'data.*.name' => 'sometimes|required|string|max:255|unique_ignore_param:App\Models\Permission,name,id'
         ];
