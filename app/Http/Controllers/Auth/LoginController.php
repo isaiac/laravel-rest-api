@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {
@@ -90,7 +91,7 @@ class LoginController extends Controller
     protected function respondWithToken(string $token)
     {
         return $this->response->array([
-            'status_code' => 200,
+            'status_code' => Response::HTTP_OK,
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => config('sanctum.expiration') * 60
