@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UpdatePasswordRequest;
-use App\Models\User;
 use App\Services\AuthService;
 use Exception;
 use Illuminate\Http\Response;

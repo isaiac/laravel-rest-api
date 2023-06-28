@@ -104,7 +104,7 @@ class User extends Authenticatable
         return Hash::check($password, $this->password);
     }
 
-   /**
+    /**
      * Check if the user has one of the given roles.
      *
      * @param  string|array  $role_ids
